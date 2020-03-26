@@ -28,9 +28,10 @@ function useFetch () {
   }, [])
 
   const completionHandler = async entry => {
-    entry.completed=true
+    const newStatus = !entry.completed
+    entry.completed = newStatus
     try {
-      const raw = await fetch(`http://localhost:3001/toDoList/${entry.id}`, {
+      await fetch(`http://localhost:3001/toDoList/${entry.id}`, {
         method: 'put',
         headers: {
           'Content-Type': 'application/json'
@@ -38,7 +39,7 @@ function useFetch () {
         body: JSON.stringify(entry)
       })
       const newToDoList = toDoList.map(object => {
-        return object.id === entry.id ? { ...object, completed: true } : object
+        return object.id === entry.id ? { ...object, completed: newStatus } : object
       })
       setToDoList(newToDoList)
     } catch (e) {console.error(e)}
@@ -46,14 +47,12 @@ function useFetch () {
 
   const deletionHandler = async entry => {
     try {
-      const raw = await fetch(`http://localhost:3001/toDoList/${entry.id}`, {
+      await fetch(`http://localhost:3001/toDoList/${entry.id}`, {
         method: 'delete',
         headers: {
           'Content-Type': 'application/json'
         },
       })
-      const data = await raw.json()
-      console.log(data)
       const newToDoList = toDoList.filter(object => object.id !== entry.id)
       setToDoList(newToDoList)
     } catch (e) {console.error(e)}
