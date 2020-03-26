@@ -1,6 +1,7 @@
 import React, { useState, useContext} from 'react'
 import {SettingsContext} from '../../context/Settings.js'
 import './ToDoList.scss'
+import { Alert, Spinner, Table, Button } from 'react-bootstrap'
 
 function ToDoList ({error, isLoading, contents, completionHandler, deletionHandler}) {
   const settings = useContext(SettingsContext)
@@ -10,10 +11,10 @@ function ToDoList ({error, isLoading, contents, completionHandler, deletionHandl
   const currentList = contents.slice(start, end)
   return (
     <div className="ToDoList">
-      {error && <div>{error}</div>}
-      {isLoading ? <div>Loading…</div> : (
+      {error && <Alert variant="danger">{error}</Alert>}
+      {isLoading ? <Spinner animation="grow" /> : (
         <>
-        <table>
+        <Table striped bordered hover variant="dark">
           <thead>
             <tr>
               <th>#</th>
@@ -31,14 +32,14 @@ function ToDoList ({error, isLoading, contents, completionHandler, deletionHandl
                 <td>{entry.description}</td>
                 <td>{entry.difficulty}</td>
                 <td>{entry.assign}</td>
-                <td><button onClick={() => completionHandler(entry)}>{entry.completed ? "Set Incomplete" : "Complete"}</button></td>
-                <td><button onClick={() => deletionHandler(entry)}>Delete</button></td>
+                <td><Button onClick={() => completionHandler(entry)}>{entry.completed ? "Set Incomplete" : "Complete"}</Button></td>
+                <td><Button variant="outline-danger" onClick={() => deletionHandler(entry)}>Delete</Button></td>
               </tr>
             ))}
           </tbody>
-        </table>
-        {page > 0 && <button onClick={() => setPage(page - 1)}>Previous</button>}
-        {contents.length > end && <button onClick={() => setPage(page + 1)}>Next</button>}
+        </Table>
+        {page > 0 && <Button variant="outline-primary" onClick={() => setPage(page - 1)}>Previous</Button>}
+        {contents.length > end && <Button  variant="outline-primary" onClick={() => setPage(page + 1)}>Next</Button>}
         </>
       )
       }

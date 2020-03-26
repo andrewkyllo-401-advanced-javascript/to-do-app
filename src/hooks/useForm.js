@@ -5,7 +5,9 @@ function useForm (callback) {
 
   const handleSubmit = e => {
     if (e) e.preventDefault()
-    callback(values)
+    if(values.description && values.difficulty && values.assign) {
+      callback(values)
+    }
   }
 
   const handleChange = e => {

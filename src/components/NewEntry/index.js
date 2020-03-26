@@ -1,5 +1,6 @@
 import React from 'react'
 import useForm from '../../hooks/useForm'
+import { Button, Form, Col } from 'react-bootstrap'
 
 function NewEntry (props) {
   
@@ -24,27 +25,37 @@ function NewEntry (props) {
 
   return (
     <div className="NewEntry">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="description"
-          placeholder="Description"
-          {...handleTextInput}
-        />
-        <input
-          type="number"
-          name="difficulty"
-          placeholder="Difficulty"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="assign"
-          placeholder="Assign"
-          {...handleTextInput}
-        />
-      <input type="submit" value="Add to the list!" />
-      </form>
+      <Form onSubmit={handleSubmit}>
+        <Form.Row>
+          <Col>
+            <Form.Control
+              type="text"
+              name="description"
+              placeholder="Description"
+              {...handleTextInput}
+            />
+          </Col>
+          <Col>
+            <Form.Control
+              type="number"
+              name="difficulty"
+              placeholder="Difficulty"
+              onChange={handleChange}
+            />
+          </Col>
+          <Col>
+            <Form.Control
+              type="text"
+              name="assign"
+              placeholder="Assign"
+              {...handleTextInput}
+            />
+          </Col>
+          <Col>
+            <Button type="submit" >Add to the list!</Button>
+          </Col>
+        </Form.Row>
+      </Form>
     </div>
   )
 }
