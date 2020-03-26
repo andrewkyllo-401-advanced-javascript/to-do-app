@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.scss';
+import Header from '../Header'
+import Footer from '../Footer'
 import useFetch from '../../hooks/useFetch' 
 import NewEntry from '../NewEntry'
 import ToDoList from '../ToDoList'
@@ -12,11 +14,12 @@ function App() {
   return (
     <Settings>
       <div className="App">
-        <h1>The Best To Do List</h1>
+        <Header/>
         <NewEntry addEntry={addEntry} />
         <ToDoList completionHandler={completionHandler} deletionHandler={deletionHandler} contents={toDoList} error={error} isLoading={isLoading} />
       </div>
       <PaginationSetter/>
+      <Footer />
     </Settings>
   );
 }
