@@ -2,6 +2,7 @@ import React, { useState, useContext} from 'react'
 import {SettingsContext} from '../../context/Settings.js'
 import './ToDoList.scss'
 import { Alert, Spinner, Table, Button } from 'react-bootstrap'
+import Auth from '../coditionals/Auth'
 
 function ToDoList ({error, isLoading, contents, completionHandler, deletionHandler}) {
   const settings = useContext(SettingsContext)
@@ -32,8 +33,12 @@ function ToDoList ({error, isLoading, contents, completionHandler, deletionHandl
                 <td>{entry.description}</td>
                 <td>{entry.difficulty}</td>
                 <td>{entry.assign}</td>
-                <td><Button onClick={() => completionHandler(entry)}>{entry.completed ? "Set Incomplete" : "Complete"}</Button></td>
-                <td><Button variant="outline-danger" onClick={() => deletionHandler(entry)}>Delete</Button></td>
+                <Auth permission="update">
+                  <td><Button onClick={() => completionHandler(entry)}>{entry.completed ? "Set Incomplete" : "Complete"}</Button></td>
+                </Auth>
+                <Auth permission="delete">
+                  <td><Button variant="outline-danger" onClick={() => deletionHandler(entry)}>Delete</Button></td>
+                </Auth>
               </tr>
             ))}
           </tbody>

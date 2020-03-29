@@ -1,6 +1,7 @@
 const User = require('../models/users')
 
 function basicAuth (req, res, next) {
+  console.log(req)
   // check if we have an authorization header
   if (!req.headers.authorization) {
     next(new Error('No authorization header'))
